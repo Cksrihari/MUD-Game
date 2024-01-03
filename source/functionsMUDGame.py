@@ -22,6 +22,7 @@ class functions_MUD:
             elif choice == '3':
                 exit()
             else:
+                #cxcvfxvvv
                 print("Invalid input. Please try again.")
 
         def login(self):
