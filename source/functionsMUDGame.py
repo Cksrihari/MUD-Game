@@ -1,5 +1,17 @@
 class functions_MUD:
-        def welcomePage():
+
+        def img(self):
+            print("""
+            
+░██████╗██╗░░░██╗██████╗░███████╗██████╗    ██╗░░██╗███╗░░██╗██╗░██████╗░██╗░░██╗████████╗
+██╔════╝██║░░░██║██╔══██╗██╔════╝██╔══██╗   ██║░██╔╝████╗░██║██║██╔════╝░██║░░██║╚══██╔══╝
+╚█████╗░██║░░░██║██████╔╝█████╗░░██████╔╝   █████═╝░██╔██╗██║██║██║░░██╗░███████║░░░██║░░░
+░╚═══██╗██║░░░██║██╔═══╝░██╔══╝░░██╔══██╗   ██╔═██╗░██║╚████║██║██║░░╚██╗██╔══██║░░░██║░░░
+██████╔╝╚██████╔╝██║░░░░░███████╗██║░░██║   ██║░╚██╗██║░╚███║██║╚██████╔╝██║░░██║░░░██║░░░
+╚═════╝░░╚═════╝░╚═╝░░░░░╚══════╝╚═╝░░╚═╝   ╚═╝░░╚═╝╚═╝░░╚══╝╚═╝░╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░
+            """)
+
+        def welcomePage(self):
             print("\n1. Register\n2. Login\n3. Quit")
             choice = input("Enter your choice: ")
 
@@ -12,7 +24,7 @@ class functions_MUD:
             else:
                 print("Invalid input. Please try again.")
 
-        def login():
+        def login(self):
             username = input("Enter your username: ")
             password = input("Enter your password: ")
 
@@ -27,7 +39,7 @@ class functions_MUD:
                         
             print("Invalid username or password")
 
-        def register():
+        def register(self):
             username = input("Enter a username: ")
 
             with open("/Users/srihari/Documents/Application Programming/MUD Game Code/resources/userDetails.txt", "r") as file:
@@ -59,7 +71,7 @@ class functions_MUD:
                 file.write(f"{username}:{password}\n")
             functions_MUD.login()
 
-        def charCreate():
+        def charCreate(self):
             charName = input("Choose your character name:\n")
             charSex = input("What if your character's gender:\n")
             charFaction = input("")
