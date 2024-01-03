@@ -1,13 +1,16 @@
-from functionsMUDGame import functions_MUD
-
+from registration import playerRegistration
+from intro import introduction
+from extras import extras
 class Main(object):
     def __init__(self):
-        self.mud_game = functions_MUD()
+        self.register = playerRegistration()
+        self.intro = introduction()
 
     def main(self):
-        while True:
-            self.mud_game.img()
-            self.mud_game.welcomePage()
+        self.intro.img()
+        self.intro.introScenario()
+        self.register.welcomePage()
+
 
 
 if __name__ == "__main__":
