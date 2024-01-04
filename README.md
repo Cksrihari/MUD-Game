@@ -1,4 +1,4 @@
-git clone https://github.com/amansethuea/webdev9.git
+git clone https://github.com/Cksrihari/MUD-Game.git
 
 git status → to check the current modified / newly added or deleted files on the branch you working on
 
