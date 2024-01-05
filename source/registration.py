@@ -1,4 +1,6 @@
 from extras import extras
+from getpass import getpass
+import maskpass
 class playerRegistration:
         def __init__(self):
             self.slow = extras()
@@ -22,8 +24,7 @@ class playerRegistration:
         def login1(self):
             #login
             username = input("Enter your username: ")
-            password = input("Enter your password: ")
-
+            password = getpass("Enter the password:")
             with open("../resources/userDetails.txt", "r") as file:
                 lines = file.readlines()
                 for line in lines:
