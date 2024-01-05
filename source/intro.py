@@ -7,7 +7,7 @@ class introduction:
         self.slow = extras()
 
     def img(self):
-        print("""
+        self.slow.slowPrint("""
 
     ░██████╗██╗░░░██╗██████╗░███████╗██████╗    ██╗░░██╗███╗░░██╗██╗░██████╗░██╗░░██╗████████╗
     ██╔════╝██║░░░██║██╔══██╗██╔════╝██╔══██╗   ██║░██╔╝████╗░██║██║██╔════╝░██║░░██║╚══██╔══╝
@@ -18,4 +18,4 @@ class introduction:
                 """)
 
     def introScenario(self):
-        self.slow.slowPrint("Add the basic introduction of the game")
+        self.slow.slowPrint("\nJoin the adventure in 'Super Knight' as a brave knight who loves a princess! \nExplore a castle, fight guards, solve quests \n\n\t\tAND \n\nSave the princess from a king who doesn't want them to be together.\n\n")

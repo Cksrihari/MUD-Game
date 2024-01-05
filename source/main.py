@@ -12,7 +12,6 @@ class Main(object):
         self.register.welcomePage()
 
 
-
 if __name__ == "__main__":
     main = Main()
     main.main()

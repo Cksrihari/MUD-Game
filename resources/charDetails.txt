@@ -1,0 +1,5 @@
+user1:Male:Knight 1
+User2:male:Knight 1
+user5:male:Knight 2
+user1234:male:Knight 2
+sam:csdc:Knight 2
