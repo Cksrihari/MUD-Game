@@ -1,9 +1,9 @@
-from extras import extras
+from extras import Extras
 from getpass4 import getpass
 
-class playerRegistration:
+class PlayerRegistration:
         def __init__(self):
-            self.slow = extras()
+            self.slow = Extras()
         def welcomePage(self):
             self.slow.slowPrint("\n1. Register\n2. Login\n3. Quit")
             while True:

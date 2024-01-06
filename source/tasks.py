@@ -1,8 +1,8 @@
-from extras import extras
+from extras import Extras
 class Tasks:
 
     def __init__(self):
-        self.slow = extras()
+        self.slow = Extras()
 
     def task_1(self):
         self.slow.slowPrint("""

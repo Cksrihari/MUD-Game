@@ -1,10 +1,10 @@
-from extras import extras
+from extras import Extras
 
 
-class introduction:
+class Introduction:
 
     def __init__(self):
-        self.slow = extras()
+        self.slow = Extras()
 
     def img(self):
 

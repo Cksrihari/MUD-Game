@@ -1,19 +1,21 @@
-from registration import playerRegistration
-from intro import introduction
+from registration import PlayerRegistration
+from intro import Introduction
 from game import GamePlay
+
+
 class Main(object):
     def __init__(self):
-        self.register = playerRegistration()
-        self.intro = introduction()
-        self.game = GamePlay()
-
+        self.register = PlayerRegistration()
+        self.intro = Introduction()
+        self.game = GamePlay(0,1,False, True)
 
     def main(self):
         self.intro.img()
         self.intro.introScenario()
         self.register.welcomePage()
-        self.game.starting_prompt()
-        self.game.common_chamber()
+        self.game.gamePlay()
+
+
 
 if __name__ == "__main__":
     main = Main()
