@@ -1,12 +1,10 @@
 from extras import extras
-from getpass import getpass
-import maskpass
+from getpass4 import getpass
+
 class playerRegistration:
         def __init__(self):
             self.slow = extras()
-
         def welcomePage(self):
-            #landing page
             self.slow.slowPrint("\n1. Register\n2. Login\n3. Quit")
             while True:
                 choice = input("\nEnter your choice: ")
@@ -21,26 +19,11 @@ class playerRegistration:
                 else:
                     self.slow.slowPrint("Invalid input. Please try again.")
 
-        def login1(self):
-            #login
-            username = input("Enter your username: ")
-            password = getpass("Enter the password:")
-            with open("../resources/userDetails.txt", "r") as file:
-                lines = file.readlines()
-                for line in lines:
-                    if ":" in line:
-                        user, pwd = line.strip().split(":", 1)
-                        if user == username and pwd == password:
-                            self.slow.slowPrint("Login successful!")
-                            return
-                        
-            self.slow.slowPrint("Invalid username or password")
-
         def login(self):
             while True:
                 # login
                 username = input("Enter your username: ")
-                password = input("Enter your password: ")
+                password = getpass("Enter your password : ")
 
                 with open("../resources/userDetails.txt", "r") as file:
                     login_successful = False
@@ -63,9 +46,6 @@ class playerRegistration:
                             self.slow.slowPrint("Invalid option.")
                             self.welcomePage()
                             break
-
-
-
         def registerAndCharCreate(self):
             #Registration
             username = input("Enter a username: ")
@@ -88,9 +68,9 @@ class playerRegistration:
                     break
 
             if i == "y":
-                password = input("Enter a password(Min length 5): ")
+                password = getpass("Enter a password(Min length 5): ")
                 while len(password) <5:
-                    password = input("Password length must be minimum 5, please retry: ")
+                    password = getpass("Password length must be minimum 5, please retry: ")
             else:
                 self.welcomePage()
 
@@ -109,7 +89,6 @@ class playerRegistration:
                     self.slow.slowPrint("\nInvalid input, try again.\n")
                 if selection:
                     break
-
 
             characterList = ['Knight 1', 'Knight 2', 'Knight 3', 'Knight 4']
 
@@ -131,7 +110,3 @@ class playerRegistration:
                 file.write(f"{username}:{charSex}:{selectedCharacter}\n")
             self.slow.slowPrint("\nYour character creation is completed.\nNow login and dive into the game of adventures!\n")
             self.login()
-
-
-
-

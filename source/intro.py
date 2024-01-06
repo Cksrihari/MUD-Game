@@ -7,6 +7,7 @@ class introduction:
         self.slow = extras()
 
     def img(self):
+
         self.slow.slowPrint("""
 
                 ░██████╗██╗░░░██╗██████╗░███████╗██████╗    ██╗░░██╗███╗░░██╗██╗░██████╗░██╗░░██╗████████╗
