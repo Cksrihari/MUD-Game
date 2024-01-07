@@ -5,6 +5,10 @@ class PlayerRegistration:
         def __init__(self):
             self.slow = Extras()
         def welcomePage(self):
+            global username
+            global password
+            global charSex
+            global selectedCharacter
             self.slow.slowPrint("\n1. Register\n2. Login\n3. Quit")
             while True:
                 choice = input("\nEnter your choice: ")
