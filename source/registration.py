@@ -4,11 +4,9 @@ from getpass4 import getpass
 class PlayerRegistration:
         def __init__(self):
             self.slow = Extras()
+            self.username = ""
+            self.selectedCharacter = ""
         def welcomePage(self):
-            global username
-            global password
-            global charSex
-            global selectedCharacter
             self.slow.slowPrint("\n1. Register\n2. Login\n3. Quit")
             while True:
                 choice = input("\nEnter your choice: ")
@@ -16,7 +14,6 @@ class PlayerRegistration:
                     self.registerAndCharCreate()
                     break
                 elif choice == '2':
-                    self.login()
                     break
                 elif choice == '3':
                     exit()
@@ -26,7 +23,7 @@ class PlayerRegistration:
         def login(self):
             while True:
                 # login
-                username = input("Enter your username: ")
+                self.username = input("Enter your username: ")
                 password = getpass("Enter your password : ")
 
                 with open("../resources/userDetails.txt", "r") as file:
@@ -34,13 +31,13 @@ class PlayerRegistration:
                     for line in file:
                         if ":" in line:
                             user, pwd = line.strip().split(":", 1)
-                            if user == username and pwd == password:
+                            if user == self.username and pwd == password:
                                 self.slow.slowPrint("Login successful!")
                                 login_successful = True
                                 break  # Break the loop if login is successful
 
                     if login_successful:
-                        break  # Break the outer loop if login is successful
+                        return self.username
                     else:
                         self.slow.slowPrint("Invalid username or password.")
                         retry_option = input("Enter '1' to retry or '2' to register: ")
@@ -50,15 +47,16 @@ class PlayerRegistration:
                             self.slow.slowPrint("Invalid option.")
                             self.welcomePage()
                             break
+
         def registerAndCharCreate(self):
             #Registration
-            username = input("Enter a username: ")
+            self.username = input("Enter a username: ")
 
             with open("../resources/userDetails.txt", "r") as file:
                 lines = file.readlines()
                 users = [line.split(":")[0] for line in lines]
             i = "y"
-            while username in users and i == "y":
+            while self.username in users and i == "y":
                 self.slow.slowPrint("Username already exists.")
                 i = input("Do you want to try again? (y/n)\n")
 
@@ -67,7 +65,7 @@ class PlayerRegistration:
                     i = input("Do you want to try again? (y/n)\n")
 
                 if i == "y":
-                    username = input("Enter your username: ")
+                    self.username = input("Enter your username: ")
                 elif i == "n":
                     break
 
@@ -80,7 +78,7 @@ class PlayerRegistration:
 
             self.slow.slowPrint("Registration successful!\nCreate your character.\n")
             with open("../resources/userDetails.txt", "a") as file:
-                file.write(f"{username}:{password}\n")
+                file.write(f"{self.username}:{password}\n")
 
             #Character creation
             selection = False
@@ -103,14 +101,14 @@ class PlayerRegistration:
                 try:
                     characterSelection = int(input("Enter the index of your choice: "))
                     if 1 <= characterSelection <= len(characterList):
-                        selectedCharacter = characterList[characterSelection - 1]
-                        self.slow.slowPrint(f"Character '{selectedCharacter}' selected for {username}")
+                        self.selectedCharacter = characterList[characterSelection - 1]
+                        self.slow.slowPrint(f"Character '{self.selectedCharacter}' selected for {self.username}")
                         break
                     else:
                         self.slow.slowPrint("\nInvalid index. Please select a valid character index.\n")
                 except ValueError:
                     self.slow.slowPrint("\nInvalid input. Please enter a number.")
             with open("../resources/charDetails.txt", "a") as file:
-                file.write(f"{username}:{charSex}:{selectedCharacter}\n")
+                file.write(f"{self.username}:{charSex}:{self.selectedCharacter}\n")
             self.slow.slowPrint("\nYour character creation is completed.\nNow login and dive into the game of adventures!\n")
-            self.login()
+

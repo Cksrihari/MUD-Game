@@ -1,11 +1,4 @@
-UserName,CharacterName,Score,Time
-Baki,Avatar-10,500,07/01/2024 00:52:56
-Baki,Avatar-10,500,07/01/2024 01:13:16
-Baki,Avatar-10,500,07/01/2024 01:13:21
-Baki,Avatar-10,500,07/01/2024 01:13:55
-Baki,Avatar-10,500,07/01/2024 01:18:04
-Baki,Avatar-10,500,07/01/2024 01:20:58
-Baki,Avatar-10,500,07/01/2024 01:21:29
-Sri,Char-1234,100,07/01/2024 00:45:39
-Baki,Avatar-2,100,07/01/2024 00:51:35
-Baki,Avatar-2,100,07/01/2024 00:51:44
+UserName,CharacterName,Score,Health,Time
+aa,,9,10,08/01/2024 22:22:34
+aa,,9,10,08/01/2024 22:23:10
+aa,Knight 2,9,10,08/01/2024 22:32:05
