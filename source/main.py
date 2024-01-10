@@ -9,16 +9,13 @@ class Main(object):
         self.register = PlayerRegistration()
         self.intro = Introduction()
         self.game = GamePlay()
-
         self.leaderBoard = LeaderBoard()
 
     def main(self):
         self.intro.img()
         self.intro.introScenario()
-
         self.register.welcomePage()
         self.game.gamePlay()
-        self.game.starting_prompt()
         #self.leaderBoard.leaderBoard("Baki", "Avatar-10", 500)
 
 

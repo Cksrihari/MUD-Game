@@ -1,2 +1,8 @@
 aa:Knight 2:10:9:common_chamber:08/01/2024 21.38.03
 aa:Knight 2:10:9:common_chamber:08/01/2024 22.18.23
+abc:Knight 2:0:10:outside_castle:09/01/2024 15.01.31
+abc:Knight 2:10:9:common_chamber:09/01/2024 15.04.52
+abc:Knight 2:5:2:middle_chamber:09/01/2024 15.05.59
+a:Knight 2:10:9:middle_chamber:10/01/2024 20.46.37
+a:Knight 2:10:9:common_chamber:10/01/2024 21.01.09
+a:Knight 2:10:9:middle_chamber:10/01/2024 21.01.44
