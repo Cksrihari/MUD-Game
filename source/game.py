@@ -40,18 +40,13 @@ class GamePlay:
             """)
         while True:
             gamer_selection = input("Enter the index of your choice: ")
+
             if gamer_selection == "1":
                 self.starting_prompt()
-                self.saveGame()
-                self.common_chamber()
-                self.saveGame()
-                self.middle_chamber()
-                self.main_chamber()
-                self.boss_chamber()
-                self.game_status = True
-                self.leader_board.leaderBoard(self.username, self.player_health, self.player_points, self.game_status)
+                exit()
             elif gamer_selection == "2":
                 self.loadGame(self.username)
+                exit()
             elif gamer_selection == "3":
                 exit()
             else:
@@ -108,6 +103,8 @@ class GamePlay:
             self.player_position = "common_chamber"
         except:
             self.slow.slowPrint("Exception occurred")
+        self.saveGame()
+        self.common_chamber()
 
     def common_chamber(self):
         self.slow.slowPrint("""
@@ -226,6 +223,8 @@ class GamePlay:
             # should be discussed
         except:
             self.slow.slowPrint("Exception occurred")
+        self.saveGame()
+        self.middle_chamber()
 
     def middle_chamber(self):
         self.slow.slowPrint("""
@@ -324,11 +323,12 @@ class GamePlay:
                         """)
         except:
             self.slow.slowPrint("Exception occurred")
+        self.main_chamber()
 
     def main_chamber(self):
-        self.main_task.task_1()
+        self.main_task.task_1(self.username, self.player_points, self.player_health, self.game_status)
         self.has_sharp_sword = True
-        self.main_task.task_2()
+        self.main_task.task_2(self.username, self.player_points, self.player_health, self.game_status)
         self.has_health_potion = True
         try:
             while True:
@@ -344,6 +344,8 @@ class GamePlay:
                         """)
         except:
             self.slow.slowPrint("Exception occurred.")
+        self.boss_chamber()
+
 
     def boss_chamber(self):
         self.slow.slowPrint("""
@@ -371,7 +373,10 @@ class GamePlay:
                         self.slow.slowPrint("""
                 Hooray! You have defeated the boss.
                         """)
-                        break
+                        self.game_status = True
+                        self.leader_board.leaderBoard(self.username, self.player_health, self.player_points,
+                                                      self.game_status)
+                        exit()
                 else:
                     self.slow.slowPrint("""
                     The Boss has defeated you. Now no one can save the princess.        
@@ -396,9 +401,11 @@ class GamePlay:
             if username == user[0]:
                 user_list.append(user)
         if user_list:
-            self.player_position = user_list[-1][-2].strip()
-            self.player_points = int(user_list[-1][-4].strip())
-            self.player_health = int(user_list[-1][-3].strip())
+            self.has_red_key = bool(user_list[-1][-2].strip())
+            self.has_green_key = bool(user_list[-1][-3].strip())
+            self.player_position = user_list[-1][-4].strip()
+            self.player_health = int(user_list[-1][-5].strip())
+            self.player_points = int(user_list[-1][-6].strip())
 
             if self.player_position == "common_chamber":
                 self.common_chamber()
@@ -430,7 +437,8 @@ class GamePlay:
             if choice.upper() == "Y":
                 with open("../resources/gameProgress.txt", "a") as file:
                     file.write(f"{self.username}:{self.char_name}:{self.player_points}:"
-                               f"{self.player_health}:{self.player_position}:{formatted_time}\n")
+                               f"{self.player_health}:{self.player_position}:{self.has_red_key}:{self.has_green_key}:"
+                               f"{formatted_time}\n")
                 self.slow.slowPrint("""
                 The game has been saved successfully.
                 Do you want to continue playing?

@@ -7,7 +7,7 @@ class Extras:
         for character in text:
             sys.stdout.write(character)  # writes the character
             sys.stdout.flush()
-            time.sleep(0)
+            time.sleep(0.002)
 
     def help(self):
         self.slowPrint("""
