@@ -1,3 +1,4 @@
+import sys
 import time
 
 from extras import Extras
@@ -32,33 +33,37 @@ class GamePlay:
         self.main_task = Task()
 
     def gamePlay(self):
-        self.username = self.login.login()
-        self.slow.slowPrint("""
-            1. Start a new game
-            2. Load last saved
-            3. Exit
-            """)
-        while True:
-            gamer_selection = input("Enter the index of your choice: ")
+        try:
+            self.username = self.login.login()
+            self.slow.slowPrint("""
+                1. Start a new game
+                2. Load last saved
+                3. Exit
+                """)
+            while True:
+                gamer_selection = input("Enter the index of your choice: ")
 
-            if gamer_selection == "1":
-                self.starting_prompt()
-                exit()
-            elif gamer_selection == "2":
-                self.loadGame(self.username)
-                exit()
-            elif gamer_selection == "3":
-                exit()
-            else:
-                self.slow.slowPrint("""
-                Invalid Input, Please choose from the above options.
-                         """)
+                if gamer_selection == "1":
+                    self.starting_prompt()
+                    exit()
+                elif gamer_selection == "2":
+                    self.loadGame(self.username)
+                    exit()
+                elif gamer_selection == "3":
+                    exit()
+                else:
+                    self.slow.slowPrint("""
+                    Invalid Input, Please choose from the above options.
+                             """)
+        except Exception as error:
+            self.slow.slowPrint(error)
+
 
     def starting_prompt(self):
         self.slow.slowPrint("""
             You are standing at the front of the castle. You have a rusty sword, it wont defeat the
             the boss but it'll do the trick against his guards. The castle has a door, it is open but
-            a Guard stands in your way.
+            a Guard stands in your way. Careful with your health, if it falls to 0, you lose the game.
 
             HINT: You can give commands to your avatar, try to use simple action words, e.g, if you want
             your avatar to enter a through a door to a room, give the command 'enter'. You can enter help
@@ -72,11 +77,17 @@ class GamePlay:
                         """)
                 command = input("Gamer command: ")
                 command = command.lower()
-                # can use if "word" not in "command"
-                if command == 'enter':
-                    if command == 'help':
-                        self.slow.help()
-                    elif self.guard_1:
+                if command == 'smash' or command == 'unlock' or command == 'open' or command == 'take':
+                    self.slow.slowPrint(f"""
+            There is nothing to {command} here.
+                        """)
+                elif command == 'help':
+                    self.slow.help()
+                elif command == 'i' or command == 'inventory':
+                    self.slow.inventory(self.has_armor, self.has_sharp_sword, self.has_health_potion,
+                                        self.has_green_key, self.has_red_key)
+                elif command == 'enter':
+                    if self.guard_1:
                         self.slow.slowPrint("""
             You can not enter the castle, the guard is in your way. Defeat him in order to proceed.
                         """)
@@ -86,25 +97,27 @@ class GamePlay:
                     self.player_points = self.player_points + 10  # update points, store in file
                     self.player_health = self.player_health - 1  # update health, store in file
                     self.guard_1 = False
-                    self.slow.slowPrint("""
-            The guard is defeated. Your health reduced during combat.
+                    self.slow.slowPrint(f"""
+            The guard is defeated. Your health reduced during combat. Your health is {self.player_health}
                         """)
                 elif command == 'attack' and not self.guard_1:
                     self.slow.slowPrint("""
             The guard is already defeated. You can enter the castle.
                         """)
+                elif command.lower() == 'exit':
+                    exit()
                 else:
                     self.slow.slowPrint("""
             Invalid command, try again.
                         """)
-            self.slow.slowPrint("""
-                You have entered the castle.
-                        """)
-            self.player_position = "common_chamber"
-        except:
-            self.slow.slowPrint("Exception occurred")
-        self.saveGame()
-        self.common_chamber()
+                self.slow.slowPrint("""
+                    You have entered the castle.
+                            """)
+                self.player_position = "common_chamber"
+                self.saveGame()
+                self.common_chamber()
+        except Exception as error:
+            self.slow.slowPrint(error)
 
     def common_chamber(self):
         self.slow.slowPrint("""
@@ -126,8 +139,15 @@ class GamePlay:
                         """)
                 command = input("Gamer command: ")
                 command = command.lower()
-                if command == 'help':
+                if command == 'attack' or command == 'open':
+                    self.slow.slowPrint(f"""
+            There is nothing to {command} here.
+                        """)
+                elif command == 'help':
                     self.slow.help()
+                elif command == 'i' or command == 'inventory':
+                    self.slow.inventory(self.has_armor, self.has_sharp_sword, self.has_health_potion,
+                                        self.has_green_key, self.has_red_key)
                 elif command == 'smash' and not ask_key_to_take and not ask_key_to_unlock:
                     if pot:
                         pot = False
@@ -213,18 +233,21 @@ class GamePlay:
                         self.slow.slowPrint("""
             You have taken the Green key.
                         """)
+                elif command.lower() == 'exit':
+                    exit()
                 else:
                     ask_key_to_take = False
                     ask_key_to_unlock = False
                     self.slow.slowPrint("""
             Invalid input. try again.    
                         """)
-            self.player_position = "middle_chamber"  # Changes made here, cut out Door unlocked, player position
+            self.player_position = "middle_chamber"
+            self.saveGame()
+            self.middle_chamber()
+            # Changes made here, cut out Door unlocked, player position
             # should be discussed
-        except:
-            self.slow.slowPrint("Exception occurred")
-        self.saveGame()
-        self.middle_chamber()
+        except Exception as error:
+            self.slow.slowPrint(error)
 
     def middle_chamber(self):
         self.slow.slowPrint("""
@@ -241,17 +264,29 @@ class GamePlay:
                         """)
                 command = input("Gamer command: ")
                 command = command.lower()
-                if command == 'help':
+                if command == 'smash':
+                    self.slow.slowPrint(f"""
+            There is nothing to {command} here.
+                        """)
+                elif command == 'help':
                     self.slow.help()
+                elif command == 'i' or command == 'inventory':
+                    self.slow.inventory(self.has_armor, self.has_sharp_sword, self.has_health_potion,
+                                        self.has_green_key, self.has_red_key)
                 elif command == 'enter':
                     break  # discuss on whether enter without Armor
                 elif command == 'attack':
                     if self.dog:
-                        self.dog = False
-                        self.player_points = self.player_points + 10
-                        self.player_health = self.player_health - 1
-                        self.slow.slowPrint("""
+                        if self.player_health == 1:
+                            self.slayed_by_dog()
+                            break
+                        else:
+                            self.dog = False
+                            self.player_points = self.player_points + 10
+                            self.player_health = self.player_health - 1
+                            self.slow.slowPrint(f"""
             You defeated the dog, your health reduced during combat. You can now unlock the chest.
+            Your health is {self.player_health}
                         """)
                     else:
                         ask_red_key = False
@@ -260,8 +295,14 @@ class GamePlay:
                         """)
                 elif command == 'unlock':
                     if self.dog:
-                        self.slow.slowPrint("""
-            The dog bit you, you can not unlock the chest without defeating the dog.
+                        if self.player_health == 1:
+                            self.slayed_by_dog()
+                            break
+                        else:
+                            self.player_health = self.player_health - 1
+                            self.slow.slowPrint(f"""
+            The dog bit you and you lost health, you can not unlock the chest without defeating the dog.
+            Your health is {self.player_health} 
                         """)
                     elif self.red_chest_unlocked:
                         self.slow.slowPrint("""
@@ -295,8 +336,14 @@ class GamePlay:
             You open the chest and find a piece of Armor. You can take the Armor.
                         """)
                     elif self.dog:
-                        self.slow.slowPrint("""
-            The dog bit you, you can not open the chest without defeating the dog.
+                        if self.player_health == 1:
+                            self.slayed_by_dog()
+                            break
+                        else:
+                            self.player_health = self.player_health - 1
+                            self.slow.slowPrint(f"""
+            The dog bit you and you lost health, you can not open the chest without defeating the dog.
+            Your health is {self.player_health}
                         """)
                     elif self.red_chest_open:
                         self.slow.slowPrint("""
@@ -316,14 +363,16 @@ class GamePlay:
                         self.slow.slowPrint("""
             You have taken and worn the Armor. It will help you to defeat the Boss.
                         """)
+                elif command.lower() == 'exit':
+                    exit()
                 else:
                     ask_red_key = False
                     self.slow.slowPrint("""
             Invalid command, try again.
                         """)
-        except:
-            self.slow.slowPrint("Exception occurred")
-        self.main_chamber()
+                self.main_chamber()
+        except Exception as error:
+            self.slow.slowPrint(error)
 
     def main_chamber(self):
         self.main_task.task_1(self.username, self.player_points, self.player_health, self.game_status)
@@ -334,17 +383,24 @@ class GamePlay:
             while True:
                 command = input("Gamer command: ")
                 command = command.lower()
-                if command == 'help':
+                if command == 'smash' or command == 'unlock' or command == 'open' or command == 'take':
+                    self.slow.slowPrint(f"""
+            There is nothing to {command} here.
+                            """)
+                elif command == 'help':
                     self.slow.help()
+                elif command == 'i' or command == 'inventory':
+                    self.slow.inventory(self.has_armor, self.has_sharp_sword, self.has_health_potion,
+                                        self.has_green_key, self.has_red_key)
                 elif command == 'enter':
                     break
                 else:
                     self.slow.slowPrint("""
             Invalid command, try again.
                         """)
-        except:
-            self.slow.slowPrint("Exception occurred.")
-        self.boss_chamber()
+                self.boss_chamber()
+        except Exception as error:
+            self.slow.slowPrint(error)
 
 
     def boss_chamber(self):
@@ -356,8 +412,15 @@ class GamePlay:
             while True:
                 command = input("Gamer command: ")
                 command = command.lower()
-                if command == 'help':
+                if command == 'smash' or command == 'unlock' or command == 'open' or command == 'take':
+                    self.slow.slowPrint(f"""
+                There is nothing to {command} here.
+                                """)
+                elif command == 'help':
                     self.slow.help()
+                elif command == 'i' or command == 'inventory':
+                    self.slow.inventory(self.has_armor, self.has_sharp_sword, self.has_health_potion,
+                                        self.has_green_key, self.has_red_key)
                 elif command == 'heal':
                     if self.player_health < 10:
                         self.player_health = 10
@@ -376,18 +439,18 @@ class GamePlay:
                         self.game_status = True
                         self.leader_board.leaderBoard(self.username, self.player_health, self.player_points,
                                                       self.game_status)
-                        exit()
+                        sys.exit()
+                elif command.lower() == 'exit':
+                    exit()
                 else:
                     self.slow.slowPrint("""
                     The Boss has defeated you. Now no one can save the princess.        
                             """)
-                    self.leader_board.leaderBoard(self.username, self.player_points, self.player_health,
+                    self.leader_board.leaderBoard(self.username, self.player_health, self.player_points,
                                                   self.game_status)
                     break
-        except:
-            self.slow.slowPrint("""
-                Exception occurred.
-                        """)
+        except Exception as error:
+            self.slow.slowPrint(error)
 
     def loadGame(self, username):
         self.slow.slowPrint("""
@@ -460,3 +523,12 @@ class GamePlay:
                 Ok!
                 Lets continue the game.""")
                 break
+
+    def slayed_by_dog(self):
+        self.slow.slowPrint("""
+                    You have been slayed by the dog, you lose.
+        =====================GAME OVER=======================
+                                """)
+        self.leader_board.leaderBoard(self.username, self.player_health, self.player_points,
+                                      self.game_status)
+        exit()

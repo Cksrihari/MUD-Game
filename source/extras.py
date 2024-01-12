@@ -1,8 +1,8 @@
 import time
 import sys
 
-class Extras:
 
+class Extras:
     def slowPrint(self, text):  # Delayed printing function
         for character in text:
             sys.stdout.write(character)  # writes the character
@@ -18,7 +18,26 @@ class Extras:
             unlock - unlock a chest or a door
             attack - attack an enemy
             take - take an item
+                red - to pick red key
+                green - to pick green key
+            smash - smash pot
             heal - use health potion
             exit - exit game
             """)
+
+    @staticmethod
+    def inventory(armor, sharp_sword, health_potion, green_key, red_key):
+        inventory_dict = {
+            "Rusty Sword": True,
+            "Armor": armor,
+            "Sharp Sword": sharp_sword,
+            "Health Potion": health_potion,
+            "Green Key": green_key,
+            "Red Key": red_key
+        }
+        for item in inventory_dict:
+            if inventory_dict[item]:
+                print("""
+                """ + item)
+
 

@@ -101,6 +101,7 @@ class Task:
 
 =====================GAME OVER=======================
                     """)
+
                     self.leader_board.leaderBoard(username, player_points, player_health, game_status)
                     exit()
             else:
