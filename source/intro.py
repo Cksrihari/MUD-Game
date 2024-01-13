@@ -7,19 +7,12 @@ class Introduction:
         self.slow = Extras()
 
     def img(self):
+        name = open("../resources/gameName.txt", "r")
+        self.slow.slow_print(name)
+        self.slow.slow_print("")
 
-        self.slow.slowPrint("""
-
-                ░██████╗██╗░░░██╗██████╗░███████╗██████╗    ██╗░░██╗███╗░░██╗██╗░██████╗░██╗░░██╗████████╗
-                ██╔════╝██║░░░██║██╔══██╗██╔════╝██╔══██╗   ██║░██╔╝████╗░██║██║██╔════╝░██║░░██║╚══██╔══╝
-                ╚█████╗░██║░░░██║██████╔╝█████╗░░██████╔╝   █████═╝░██╔██╗██║██║██║░░██╗░███████║░░░██║░░░
-                ░╚═══██╗██║░░░██║██╔═══╝░██╔══╝░░██╔══██╗   ██╔═██╗░██║╚████║██║██║░░╚██╗██╔══██║░░░██║░░░
-                ██████╔╝╚██████╔╝██║░░░░░███████╗██║░░██║   ██║░╚██╗██║░╚███║██║╚██████╔╝██║░░██║░░░██║░░░
-                ╚═════╝░░╚═════╝░╚═╝░░░░░╚══════╝╚═╝░░╚═╝   ╚═╝░░╚═╝╚═╝░░╚══╝╚═╝░╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░
-                """)
-
-    def introScenario(self):
-        self.slow.slowPrint("""
+    def intro_scenario(self):
+        self.slow.slow_print("""
                     Join the adventure in 'Super Knight' as a brave knight who loves a princess! 
                                               Explore a castle, 
                                          fight guards, solve quests 

@@ -13,11 +13,9 @@ class Main(object):
 
     def main(self):
         self.intro.img()
-        self.intro.introScenario()
-        self.register.welcomePage()
-        self.game.gamePlay()
-        #self.leaderBoard.leaderBoard("Baki", "Avatar-10", 500)
-
+        self.intro.intro_scenario()
+        self.register.welcome_page()
+        self.game.game_play()
 
 
 if __name__ == "__main__":

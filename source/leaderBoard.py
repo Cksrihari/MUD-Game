@@ -9,7 +9,7 @@ class LeaderBoard:
     def __init__(self):
         self.slow = Extras()
 
-    def leaderBoard(self, user_name, health, score, status):
+    def leader_board(self, user_name, health, score, status):
 
         data = open("../resources/charDetails.txt", "r")
         user_details = data.readlines()
@@ -33,7 +33,7 @@ class LeaderBoard:
                 writer = csv.writer(file)
                 writer.writerow([user_name, character_name, health, score, "Not Completed", formatted_time])
         else:
-            self.slow.slowPrint("""
+            self.slow.slow_print("""
             Congratulations!
             You have rescued the princess and there is no one to stop you now.
 

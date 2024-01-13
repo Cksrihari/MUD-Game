@@ -1,16 +1,18 @@
 import time
 import sys
-
+from colorama import init
+from colorama import Fore
+init()
 
 class Extras:
-    def slowPrint(self, text):  # Delayed printing function
+    def slow_print(self, text):  # Delayed printing function
         for character in text:
             sys.stdout.write(character)  # writes the character
             sys.stdout.flush()
             time.sleep(0.002)
 
     def help(self):
-        self.slowPrint("""
+        self.slow_print(Fore.GREEN + """
             Commands to help you:
             i - display inventory
             enter - enter into a chamber
@@ -37,7 +39,7 @@ class Extras:
         }
         for item in inventory_dict:
             if inventory_dict[item]:
-                print("""
+                print(Fore.GREEN + """
                 """ + item)
 
 

@@ -1,12 +1,21 @@
 from extras import Extras
 from leaderBoard import LeaderBoard
+from colorama import init
+from colorama import Fore
+init()
+
 
 class Task:
     def __init__(self):
         self.slow = Extras()
         self.leader_board = LeaderBoard()
-    def task_1(self, username, player_points, player_health, game_status):
-        self.slow.slowPrint("""
+        self.nord_weapon = "Long Sword"
+        self.elf_weapon = "Elven Bow"
+        self.orc_weapon = "Heavy Mace"
+        self.dwarf_weapon = "Broad Axe"
+
+    def task_1(self, username, race, player_points, player_health, game_status):
+        self.slow.slow_print(Fore.GREEN + """
         You are now in the Main Chamber. The door is locked!
         You have to complete two riddled to open the door and move forward.
         Here comes the first riddle!
@@ -18,10 +27,10 @@ class Task:
 
         chance = 2
         while True:
-            self.slow.slowPrint(f"""
+            self.slow.slow_print(Fore.GREEN + f"""
         Chances Left: {chance}
                     """)
-            answer_task_1 = input("""
+            answer_task_1 = input(Fore.CYAN + """
         Options:
                 a) Clock
                 b) Statue
@@ -31,33 +40,51 @@ class Task:
             """)
 
             if answer_task_1.upper() == "A":
-                self.slow.slowPrint("""
-        Genius! You have been awarded the Sharp sword. It'll help you to beat the Boss.
-                    """)
-                break
+                if race == 'Nord':
+                    self.slow.slow_print(Fore.GREEN + f"""
+        Genius! As you are a {race}, you have been awarded the {self.nord_weapon}.
+        It'll help you to beat the Boss.
+            """)
+                elif race == 'Elf':
+                    self.slow.slow_print(Fore.GREEN + f"""
+        Genius! As you are a {race}, you have been awarded the {self.elf_weapon}.
+        It'll help you to beat the Boss.
+            """)
+                elif race == 'Orc':
+                    self.slow.slow_print(Fore.GREEN + f"""
+        Genius! As you are a {race}, you have been awarded the {self.orc_weapon}.
+        It'll help you to beat the Boss.
+            """)
+                else:
+                    self.slow.slow_print(Fore.GREEN + f"""
+        Genius! As you are a {race}, you have been awarded the {self.dwarf_weapon}.
+        It'll help you to beat the Boss.
+            """)
+                    break
             elif answer_task_1.upper() in ["B", "C", "D"]:
                 chance -= 1
                 if chance > 0:
-                    self.slow.slowPrint("""
+                    self.slow.slow_print(Fore.GREEN + """
         Oops! 
         Think harder. You have another chance.
         But this will be the last.
                     """)
                 elif chance == 0:
-                    self.slow.slowPrint("""
+                    self.slow.slow_print(Fore.RED + """
         You have lost the final chance. 
         You were unable to solve the riddle. 
 
 =====================GAME OVER=======================
                     """)
-                    self.leader_board.leaderBoard(username, player_points, player_health, game_status)
+                    self.leader_board.leader_board(username, player_points, player_health, game_status)
                     exit()
             else:
-                self.slow.slowPrint("""
-        Un-expected input. Please choose from above options only""")
+                self.slow.slow_print(Fore.GREEN + """
+        Please choose from above options only.
+                    """)
 
     def task_2(self, username, player_points, player_health, game_status):
-        self.slow.slowPrint("""
+        self.slow.slow_print(Fore.GREEN + """
         Continue thinking hard. 
         This is the last one!
 
@@ -68,7 +95,7 @@ class Task:
 
         chance = 2
         while True:
-            self.slow.slowPrint(f"""
+            self.slow.slow_print(Fore.CYAN + f"""
         Chances Left: {chance}
                     """)
             answer_task_2 = input("""
@@ -81,7 +108,7 @@ class Task:
             """)
 
             if answer_task_2.upper() == "A":
-                self.slow.slowPrint("""
+                self.slow.slow_print(Fore.GREEN + """
         Genius! You have been awarded a health potion, use it wisely.
         Now you can enter the Boss Chamber.
                     """)
@@ -89,27 +116,22 @@ class Task:
             elif answer_task_2.upper() in ["B", "C", "D"]:
                 chance -= 1
                 if chance > 0:
-                    self.slow.slowPrint("""
+                    self.slow.slow_print(Fore.GREEN + """
         Oops! 
         Think harder. You have another chance.
         But this will be the last.
                     """)
                 elif chance == 0:
-                    self.slow.slowPrint("""
+                    self.slow.slow_print(Fore.RED + """
         You have lost the final chance. 
         You were unable to solve the riddle. 
 
 =====================GAME OVER=======================
                     """)
 
-                    self.leader_board.leaderBoard(username, player_points, player_health, game_status)
+                    self.leader_board.leader_board(username, player_points, player_health, game_status)
                     exit()
             else:
-                self.slow.slowPrint("""
-                Un-expected input. Please choose from above options only""")
-
-
-if __name__ == "__main__":
-    task = Task()
-    task.task_1()
-    task.task_2()
+                self.slow.slow_print(Fore.GREEN + """
+        Please choose from above options only.
+                    """)
