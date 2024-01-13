@@ -83,7 +83,7 @@ class GamePlay:
                         """)
                 elif command == 'help':
                     self.slow.help()
-                elif command == 'i' or command == 'inventory':
+                elif command == 'i':
                     self.slow.inventory(self.has_armor, self.has_adv_weapon, self.has_health_potion,
                                         self.has_green_key, self.has_red_key)
                 elif command == 'enter':
@@ -422,7 +422,7 @@ class GamePlay:
                                 """)
                 elif command == 'help':
                     self.slow.help()
-                elif command == 'i' or command == 'inventory':
+                elif command == 'i':
                     self.slow.inventory(self.has_armor, self.has_adv_weapon, self.has_health_potion,
                                         self.has_green_key, self.has_red_key)
                 elif command == 'heal':

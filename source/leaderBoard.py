@@ -5,6 +5,7 @@ import calendar
 import time
 from extras import Extras
 
+
 class LeaderBoard:
     def __init__(self):
         self.slow = Extras()

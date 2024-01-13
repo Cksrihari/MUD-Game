@@ -7,7 +7,7 @@ class Introduction:
         self.slow = Extras()
 
     def img(self):
-        name = open("../resources/gameName.txt", "r")
+        name = open("../resources/gameName.txt", "r", encoding='utf-8')
         self.slow.slow_print(name)
         self.slow.slow_print("")
 

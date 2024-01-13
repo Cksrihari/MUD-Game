@@ -2,6 +2,7 @@ from registration import PlayerRegistration
 from intro import Introduction
 from game import GamePlay
 from leaderBoard import LeaderBoard
+from extras import Extras
 
 
 class Main(object):
@@ -10,8 +11,10 @@ class Main(object):
         self.intro = Introduction()
         self.game = GamePlay()
         self.leaderBoard = LeaderBoard()
+        self.music = Extras()
 
     def main(self):
+        self.music.play_game_audio()
         self.intro.img()
         self.intro.intro_scenario()
         self.register.welcome_page()
@@ -21,3 +24,4 @@ class Main(object):
 if __name__ == "__main__":
     main = Main()
     main.main()
+

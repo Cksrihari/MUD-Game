@@ -2,7 +2,9 @@ import time
 import sys
 from colorama import init
 from colorama import Fore
+import pygame
 init()
+
 
 class Extras:
     def slow_print(self, text):  # Delayed printing function
@@ -42,4 +44,9 @@ class Extras:
                 print(Fore.GREEN + """
                 """ + item)
 
+    def play_game_audio(self):
+        soundtrack_path = "../resources/game_audio.mp3"
+        pygame.mixer.init()
+        pygame.mixer.music.load(soundtrack_path)
+        pygame.mixer.music.play(-1)  # -1 for looping the music
 

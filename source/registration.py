@@ -1,5 +1,5 @@
 from extras import Extras
-from getpass4 import getpass
+import stdiomask
 
 
 class PlayerRegistration:
@@ -28,7 +28,7 @@ class PlayerRegistration:
             while True:
                 # login
                 self.user_name = input("Enter your username: ")
-                self.password = getpass("Enter your password : ")
+                self.password = stdiomask.getpass("Enter your password : ", mask="*")
 
                 with open("../resources/userDetails.txt", "r") as file:
                     login_successful = False
@@ -53,11 +53,22 @@ class PlayerRegistration:
                             break
 
         def register_and_char_create(self):
-            self.user_name = input("Enter a username: ")
-
+            while True:
+                self.user_name = input("Enter a username: ")
+                if len(self.user_name) <= 0:
+                    self.slow.slow_print("""
+Username can not be blank
+""")
+                elif " " in self.user_name:
+                    self.slow.slow_print("""
+You can not add blank spaces in the username.
+""")
+                else:
+                    break
             with open("../resources/userDetails.txt", "r") as file:
                 lines = file.readlines()
                 users = [line.split(":")[0] for line in lines]
+
             i = "y"
             while self.user_name in users and i == "y":
                 self.slow.slow_print("Username already exists.")
@@ -73,9 +84,18 @@ class PlayerRegistration:
                     break
 
             if i == "y":
-                self.password = getpass("Enter a password(Min length 5): ")
-                while len(self.password) <5:
-                    self.password = getpass("Password length must be minimum 5, please retry: ")
+                while True:
+                    self.password = stdiomask.getpass("Enter a password (Min length 5): ", mask="*")
+                    if len(self.password) < 5:
+                        self.slow.slow_print("""
+                        Password length must be minimum 5, please retry.
+                         """)
+                    elif " " in self.password:
+                        self.slow.slow_print("""
+                        Password cannot be blank or just spaces. Please retry.
+                        """)
+                    else:
+                        break
             else:
                 self.welcome_page()
 
