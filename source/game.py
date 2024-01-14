@@ -82,6 +82,8 @@ class GamePlay:
                     self.slow.slow_print(Fore.GREEN + f"""
             There is nothing to {command} here.
                         """)
+                elif command == 'heal':
+                    self.heal()
                 elif command == 'help':
                     self.slow.help()
                 elif command == 'i':
@@ -142,6 +144,8 @@ class GamePlay:
                         """)
                 elif command == 'help' and not ask_key_to_take and not ask_key_to_unlock:
                     self.slow.help()
+                elif command == 'heal' and not ask_key_to_take and not ask_key_to_unlock:
+                    self.heal()
                 elif command == 'smash' and not ask_key_to_take and not ask_key_to_unlock:
                     if self.c_c_pots > 0:
                         self.c_c_pots = self.pot_smash(self.c_c_pots)
@@ -259,6 +263,8 @@ class GamePlay:
                         """)
                 elif command == 'help' and not ask_red_key:
                     self.slow.help()
+                elif command == 'heal' and not ask_red_key:
+                    self.heal()
                 elif command == 'i' and not ask_red_key:
                     self.slow.inventory(self.has_armor, self.has_adv_weapon, self.has_health_potion,
                                         self.has_green_key, self.has_red_key)
@@ -268,7 +274,9 @@ class GamePlay:
                     if self.dog:
                         if self.player_health == 1:
                             self.slayed()
-                            break
+                            self.leader_board.leader_board(self.username, self.player_health, self.player_points,
+                                                           self.game_status)
+                            exit()
                         else:
                             self.dog = False
                             self.attack()
@@ -285,7 +293,9 @@ class GamePlay:
                     if self.dog:
                         if self.player_health == 1:
                             self.slayed()
-                            break
+                            self.leader_board.leader_board(self.username, self.player_health, self.player_points,
+                                                           self.game_status)
+                            exit()
                         else:
                             self.player_health = self.player_health - 1
                             self.slow.slow_print(Fore.GREEN + f"""
@@ -326,7 +336,9 @@ class GamePlay:
                     elif self.dog:
                         if self.player_health == 1:
                             self.slayed()
-                            break
+                            self.leader_board.leader_board(self.username, self.player_health, self.player_points,
+                                                           self.game_status)
+                            exit()
                         else:
                             self.player_health = self.player_health - 1
                             self.slow.slow_print(Fore.GREEN + f"""
@@ -385,6 +397,8 @@ class GamePlay:
                         """)
                 elif command == 'help':
                     self.slow.help()
+                elif command == 'heal':
+                    self.heal()
                 elif command == 'i':
                     self.slow.inventory(self.has_armor, self.has_adv_weapon, self.has_health_potion,
                                         self.has_green_key, self.has_red_key)
@@ -419,15 +433,7 @@ class GamePlay:
                     self.slow.inventory(self.has_armor, self.has_adv_weapon, self.has_health_potion,
                                         self.has_green_key, self.has_red_key)
                 elif command == 'heal':
-                    if self.player_health < 5:
-                        self.player_health = 5
-                        self.slow.slow_print(Fore.GREEN + """
-            You have used the health potion and healed to full health !
-                        """)
-                    else:
-                        self.slow.slow_print(Fore.GREEN + """
-            You have full health.
-                        """)
+                    self.heal()
                 elif command == 'attack':
                     if self.has_armor and self.has_adv_weapon and self.player_health == 5:
                         self.slow.slow_print(Fore.GREEN + """
@@ -467,8 +473,8 @@ class GamePlay:
             self.player_health = int(user_list[-1][-5].strip())
             self.player_points = int(user_list[-1][-6].strip())
             self.slow.slow_print("""
-                Welcome back!
-                            """)
+            Welcome back!
+                        """)
             if self.player_position == "common_chamber":
 
                 self.common_chamber()
@@ -528,15 +534,12 @@ class GamePlay:
                         """)
                 break
 
-    def slayed(self):
-        self.player_health = self.player_health - 1
+    def slayed(self):  # if killed by guard or dog, not by Boss
+        self.player_health = 0
         self.slow.slow_print(Fore.RED + """
             You have been slayed, you lose.
         =====================GAME OVER=======================
                         """)
-        self.leader_board.leader_board(self.username, self.player_health, self.player_points,
-                                       self.game_status)
-        exit()
 
     def pot_smash(self, pots):  # pot smash for any chamber
         pots = pots - 1
@@ -549,3 +552,20 @@ class GamePlay:
     def attack(self):
         self.player_points = self.player_points + 10
         self.player_health = self.player_health - 1
+
+    def heal(self):
+        if self.has_health_potion:
+            if self.player_health < 5:
+                self.player_health = 5
+                self.slow.slow_print(Fore.GREEN + """
+            You have used the health potion and healed to full health !
+                        """)
+            else:
+                self.slow.slow_print(Fore.GREEN + """
+            You have full health.
+                        """)
+        else:
+            self.slow.slow_print(Fore.GREEN + """
+            You do not have anything to heal with.
+                        """)
+
