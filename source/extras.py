@@ -27,22 +27,22 @@ class Extras:
             smash - smash pot
             heal - use health potion
             exit - exit game
-            """)
+                        """)
 
-    @staticmethod
-    def inventory(armor, sharp_sword, health_potion, green_key, red_key):
+    def inventory(self, armor, adv_weapon, health_potion, green_key, red_key):
         inventory_dict = {
             "Rusty Sword": True,
             "Armor": armor,
-            "Sharp Sword": sharp_sword,
+            "Sharp Sword": adv_weapon,
             "Health Potion": health_potion,
             "Green Key": green_key,
             "Red Key": red_key
         }
         for item in inventory_dict:
             if inventory_dict[item]:
-                print(Fore.GREEN + """
-                """ + item)
+                self.slow_print(Fore.GREEN + """
+            """ + item + """
+                        """)
 
     def play_game_audio(self):
         soundtrack_path = "../resources/game_audio.mp3"

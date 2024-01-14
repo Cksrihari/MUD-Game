@@ -13,125 +13,128 @@ class Task:
         self.elf_weapon = "Elven Bow"
         self.orc_weapon = "Heavy Mace"
         self.dwarf_weapon = "Broad Axe"
+        self.chance = 2
 
     def task_1(self, username, race, player_points, player_health, game_status):
         self.slow.slow_print(Fore.GREEN + """
-        You are now in the Main Chamber. The door is locked!
-        You have to complete two riddled to open the door and move forward.
-        Here comes the first riddle!
+            You are now in the Main Chamber. The door to the Boss chamber is locked!
+            You have to complete two riddles to open the door and move forward. Careful,
+            theres only two chances for each riddle, and if you use them all up, a trap door
+            will open sending you to your doom. Completing the riddles will grant you items
+            that will help defeat the boss.
 
-        Riddle: I have a face but no eyes, hands but no arms,
-                A tick-tock sound, yet do no harm.
-                What am I?
-                    """)
+            Riddle: I have a face but no eyes, hands but no arms, a tick-tock sound, yet do no harm.
+            What am I?
+                        """)
 
-        chance = 2
         while True:
             self.slow.slow_print(Fore.GREEN + f"""
-        Chances Left: {chance}
-                    """)
+            Chances Left: {self.chance}
+                        """)
             answer_task_1 = input(Fore.CYAN + """
-        Options:
+            Options:
                 a) Clock
                 b) Statue
                 c) Painting
                 d) Mirror
-        Answer: 
-            """)
+            Answer: 
+                        """)
 
             if answer_task_1.upper() == "A":
+                self.slow.slow_print(Fore.GREEN + f"""
+            Genius! As you are a {race}, you have been awarded the,
+                        """)
                 if race == 'Nord':
                     self.slow.slow_print(Fore.GREEN + f"""
-        Genius! As you are a {race}, you have been awarded the {self.nord_weapon}.
-        It'll help you to beat the Boss.
-            """)
+            {self.nord_weapon}
+                        """)
                 elif race == 'Elf':
                     self.slow.slow_print(Fore.GREEN + f"""
-        Genius! As you are a {race}, you have been awarded the {self.elf_weapon}.
-        It'll help you to beat the Boss.
-            """)
+            {self.elf_weapon}
+                        """)
                 elif race == 'Orc':
                     self.slow.slow_print(Fore.GREEN + f"""
-        Genius! As you are a {race}, you have been awarded the {self.orc_weapon}.
-        It'll help you to beat the Boss.
-            """)
+            {self.orc_weapon}   
+                        """)
                 else:
                     self.slow.slow_print(Fore.GREEN + f"""
-        Genius! As you are a {race}, you have been awarded the {self.dwarf_weapon}.
-        It'll help you to beat the Boss.
-            """)
-                    break
+            {self.dwarf_weapon}
+                        """)
+                self.slow.slow_print(Fore.GREEN + """
+            It'll help you to beat the Boss.
+                        """)
+                break
             elif answer_task_1.upper() in ["B", "C", "D"]:
-                chance -= 1
-                if chance > 0:
+                self.chance -= 1
+                if self.chance > 0:
                     self.slow.slow_print(Fore.GREEN + """
-        Oops! 
-        Think harder. You have another chance.
-        But this will be the last.
-                    """)
-                elif chance == 0:
+            Oops! 
+            Think harder. You have another chance.
+            But this will be the last.
+                        """)
+                else:
                     self.slow.slow_print(Fore.RED + """
-        You have lost the final chance. 
-        You were unable to solve the riddle. 
+            You have lost the final chance. You were unable to solve the riddle and fall to your doom. 
 
 =====================GAME OVER=======================
-                    """)
+                        """)
                     self.leader_board.leader_board(username, player_points, player_health, game_status)
                     exit()
             else:
                 self.slow.slow_print(Fore.GREEN + """
-        Please choose from above options only.
-                    """)
+            Please choose from above options only.
+                        """)
 
     def task_2(self, username, player_points, player_health, game_status):
         self.slow.slow_print(Fore.GREEN + """
-        Continue thinking hard. 
-        This is the last one!
+            Continue thinking hard. 
+            This is the last one!
 
-        Riddle: I'm shiny and bright, but not made of gold,
-                I turn and twist, yet in place I hold.
-                What am I?        
-                    """)
+            Riddle: I'm shiny and bright, but not made of gold, I turn and twist, yet in place I hold.
+            What am I?        
+                        """)
 
-        chance = 2
+        self.chance = 2
         while True:
             self.slow.slow_print(Fore.CYAN + f"""
-        Chances Left: {chance}
-                    """)
+            Chances Left: {self.chance}
+                        """)
             answer_task_2 = input("""
-        Options:
+            Options:
                 a) Sword
                 b) Shield
                 c) Crown
                 d) Armor
-        Answer: 
-            """)
+            Answer: 
+                        """)
 
             if answer_task_2.upper() == "A":
                 self.slow.slow_print(Fore.GREEN + """
-        Genius! You have been awarded a health potion, use it wisely.
-        Now you can enter the Boss Chamber.
-                    """)
+            Genius! You have been awarded a health potion, use it wisely.
+            Now you can enter the Boss Chamber.
+                        """)
                 break
             elif answer_task_2.upper() in ["B", "C", "D"]:
-                chance -= 1
-                if chance > 0:
+                self.chance -= 1
+                if self.chance > 0:
                     self.slow.slow_print(Fore.GREEN + """
-        Oops! 
-        Think harder. You have another chance.
-        But this will be the last.
-                    """)
-                elif chance == 0:
+            Oops! 
+            Think harder. You have another chance.
+            But this will be the last.
+                        """)
+                else:
                     self.slow.slow_print(Fore.RED + """
-        You have lost the final chance. 
-        You were unable to solve the riddle. 
+            You have lost the final chance. 
+            You were unable to solve the riddle. 
 
 =====================GAME OVER=======================
-                    """)
+                        """)
 
                     self.leader_board.leader_board(username, player_points, player_health, game_status)
                     exit()
             else:
                 self.slow.slow_print(Fore.GREEN + """
-        Please choose from above options only.
-                    """)
+            Please choose from above options only.
+                        """)
+
+

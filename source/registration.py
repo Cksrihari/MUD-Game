@@ -43,14 +43,11 @@ class PlayerRegistration:
                     if login_successful:
                         return self.user_name
                     else:
-                        self.slow.slow_print("Invalid username or password.")
-                        retry_option = input("Enter '1' to retry or '2' to register: ")
-                        if retry_option == '2':
-                            self.register_and_char_create()
-                        elif retry_option != '1':
-                            self.slow.slow_print("Invalid option.")
-                            self.welcome_page()
-                            break
+                        self.slow.slow_print("""
+Invalid username or password.
+""")
+                        self.welcome_page()
+                        break
 
         def register_and_char_create(self):
             while True:

@@ -7,6 +7,7 @@ from tasks import Task
 import calendar
 from colorama import init
 from colorama import Fore
+
 init()
 
 
@@ -71,7 +72,7 @@ class GamePlay:
             HINT: You can give commands to your avatar, try to use simple action words, e.g, if you want
             your avatar to enter a through a door to a room, give the command 'enter'. You can enter help
             to show you a list of commands if you get confused.
-            """)
+                        """)
         # make command to lower and split function
         try:
             while True:
@@ -94,11 +95,11 @@ class GamePlay:
                     else:
                         break
                 elif command == 'attack' and self.guard_1:
-                    self.player_points = self.player_points + 10  # update points, store in file
-                    self.player_health = self.player_health - 1  # update health, store in file
+                    self.attack()
                     self.guard_1 = False
                     self.slow.slow_print(Fore.GREEN + f"""
-            The guard is defeated. Your health reduced during combat. Your health is {self.player_health}
+            The guard is defeated. Your health reduced during combat. Your health is {self.player_health}.
+            Your score is {self.player_points}.
                         """)
                 elif command == 'attack' and not self.guard_1:
                     self.slow.slow_print(Fore.GREEN + """
@@ -128,7 +129,7 @@ class GamePlay:
 
             Type "enter" to enter the chamber or type "take" to take the keys.
             Warning: You might not be able to win the game without the keys.
-            """)
+                        """)
         ask_key_to_take = False
         ask_key_to_unlock = False
         try:
@@ -143,15 +144,11 @@ class GamePlay:
                     self.slow.help()
                 elif command == 'smash' and not ask_key_to_take and not ask_key_to_unlock:
                     if self.c_c_pots > 0:
-                        self.c_c_pots = self.c_c_pots - 1
-                        self.player_points = self.player_points + 10
-                        self.slow.slow_print(Fore.GREEN + f"""
-            You smashed the pot. Your score increased to {self.player_points} 
-                        """)
+                        self.c_c_pots = self.pot_smash(self.c_c_pots)
                     else:
                         self.slow.slow_print(Fore.GREEN + """
             There is nothing to smash here.
-                            """)
+                        """)
                 elif command == 'i' and not ask_key_to_take and not ask_key_to_unlock:
                     self.slow.inventory(self.has_armor, self.has_adv_weapon, self.has_health_potion,
                                         self.has_green_key, self.has_red_key)
@@ -247,7 +244,7 @@ class GamePlay:
             There is a red chest here guarded by a dog.
             There is a door after the chest leading to the Main Chamber. The door is unlocked, but you might
             find something useful in the chest.
-        """)
+                        """)
         ask_red_key = False
         try:
             while True:
@@ -255,15 +252,11 @@ class GamePlay:
                 command = command.lower()
                 if command == 'smash' and not ask_red_key:
                     if self.mid_c_pots > 0:
-                        self.mid_c_pots = self.mid_c_pots - 1
-                        self.player_points = self.player_points + 10
-                        self.slow.slow_print(Fore.GREEN + f"""
-                    You smashed the pot. Your score increased to {self.player_points} 
-                                """)
+                        self.mid_c_pots = self.pot_smash(self.mid_c_pots)
                     else:
                         self.slow.slow_print(Fore.GREEN + """
-                    There is nothing to smash here.
-                                    """)
+            There is nothing to smash here.
+                        """)
                 elif command == 'help' and not ask_red_key:
                     self.slow.help()
                 elif command == 'i' and not ask_red_key:
@@ -274,15 +267,14 @@ class GamePlay:
                 elif command == 'attack' and not ask_red_key:
                     if self.dog:
                         if self.player_health == 1:
-                            self.slayed_by_dog()
+                            self.slayed()
                             break
                         else:
                             self.dog = False
-                            self.player_points = self.player_points + 10
-                            self.player_health = self.player_health - 1
+                            self.attack()
                             self.slow.slow_print(Fore.GREEN + f"""
             You defeated the dog, your health reduced during combat. You can now unlock the chest.
-            Your health is {self.player_health}
+            Your health is {self.player_health}. Your score is {self.player_points}.
                         """)
                     else:
                         ask_red_key = False
@@ -292,7 +284,7 @@ class GamePlay:
                 elif command == 'unlock':
                     if self.dog:
                         if self.player_health == 1:
-                            self.slayed_by_dog()
+                            self.slayed()
                             break
                         else:
                             self.player_health = self.player_health - 1
@@ -333,7 +325,7 @@ class GamePlay:
                         """)
                     elif self.dog:
                         if self.player_health == 1:
-                            self.slayed_by_dog()
+                            self.slayed()
                             break
                         else:
                             self.player_health = self.player_health - 1
@@ -386,10 +378,11 @@ class GamePlay:
             while True:
                 command = input(Fore.CYAN + "Gamer command: ")
                 command = command.lower()
-                if command == 'smash' or command == 'unlock' or command == 'open' or command == 'take':
+                if (command == 'smash' or command == 'unlock' or command == 'open' or command == 'take'
+                        or command == 'attack'):
                     self.slow.slow_print(Fore.GREEN + f"""
             There is nothing to {command} here.
-                            """)
+                        """)
                 elif command == 'help':
                     self.slow.help()
                 elif command == 'i':
@@ -411,7 +404,7 @@ class GamePlay:
         self.slow.slow_print(Fore.GREEN + """
             You have entered the Boss Chamber. He faces you and awaits your attack. Careful, you only have
             one chance and cant defeat him without full health. You can heal with your health potion.
-                    """)
+                        """)
         try:
             while True:
                 command = input(Fore.CYAN + "Gamer command: ")
@@ -419,15 +412,15 @@ class GamePlay:
                 if command == 'smash' or command == 'unlock' or command == 'open' or command == 'take':
                     self.slow.slow_print(Fore.GREEN + f"""
             There is nothing to {command} here.
-                                """)
+                        """)
                 elif command == 'help':
                     self.slow.help()
                 elif command == 'i':
                     self.slow.inventory(self.has_armor, self.has_adv_weapon, self.has_health_potion,
                                         self.has_green_key, self.has_red_key)
                 elif command == 'heal':
-                    if self.player_health < 10:
-                        self.player_health = 10
+                    if self.player_health < 5:
+                        self.player_health = 5
                         self.slow.slow_print(Fore.GREEN + """
             You have used the health potion and healed to full health !
                         """)
@@ -436,15 +429,17 @@ class GamePlay:
             You have full health.
                         """)
                 elif command == 'attack':
-                    if self.has_armor and self.has_adv_weapon and self.player_health == 10:
+                    if self.has_armor and self.has_adv_weapon and self.player_health == 5:
                         self.slow.slow_print(Fore.GREEN + """
             HOORAY! You have defeated the boss.
                         """)
+                        self.player_points = self.player_points + 50
                         self.game_status = True
                         self.leader_board.leader_board(self.username, self.player_health, self.player_points,
                                                        self.game_status)
                         exit()
                     else:
+                        self.player_health = 0
                         self.slow.slow_print(Fore.RED + """
             The Boss has defeated you. Now no one can save the princess.        
                         """)
@@ -458,9 +453,6 @@ class GamePlay:
             self.slow.slow_print(error)
 
     def load_game(self, username):
-        self.slow.slow_print("""
-        Welcome back!
-        """)
         game_progress = open("../resources/gameProgress.txt", "r")
         user_progress = game_progress.readlines()
         user_list = []
@@ -474,8 +466,11 @@ class GamePlay:
             self.player_position = user_list[-1][-4].strip()
             self.player_health = int(user_list[-1][-5].strip())
             self.player_points = int(user_list[-1][-6].strip())
-
+            self.slow.slow_print("""
+                Welcome back!
+                            """)
             if self.player_position == "common_chamber":
+
                 self.common_chamber()
             elif self.player_position == "middle_chamber":
                 self.middle_chamber()
@@ -498,8 +493,9 @@ class GamePlay:
         self.char_name = user_list[0][-1].strip()
 
         self.slow.slow_print(Fore.CYAN + """
-        You can save the at this stage!
-        Do you want to save?(Y/N)""")
+            You can save the at this stage!
+            Do you want to save?(Y/N)
+                        """)
         while True:
             choice = input("Enter your choice: ")
             if choice.upper() == "Y":
@@ -508,32 +504,48 @@ class GamePlay:
                                f"{self.player_health}:{self.player_position}:{self.has_red_key}:{self.has_green_key}:"
                                f"{formatted_time}\n")
                 self.slow.slow_print("""
-                The game has been saved successfully.
-                Do you want to continue playing?
-                You can either type "continue" or "end".""")
+            The game has been saved successfully.
+            Do you want to continue playing?
+            You can either type "continue" or "end".
+                        """)
                 choice_1 = input("Gamer command: ")
                 if choice_1.upper() == "CONTINUE":
                     break
                 elif choice_1.upper() == "END":
                     self.slow.slow_print("""
-                    Game closed.
-                    You can reload your progress just by logging in to the game.""")
+            Game closed.
+            You can reload your progress just by logging in to the game.
+                        """)
                     quit()
                 else:
                     self.slow.slow_print("""
-                    Invalid input. please enter either "continue" or "end".
-                    """)
+            Invalid input. please enter either "continue" or "end".
+                        """)
             elif choice.upper() == "N":
                 self.slow.slow_print("""
-                Ok!
-                Lets continue the game.""")
+            Ok!
+            Lets continue the game.
+                        """)
                 break
 
-    def slayed_by_dog(self):
+    def slayed(self):
+        self.player_health = self.player_health - 1
         self.slow.slow_print(Fore.RED + """
-                    You have been slayed by the dog, you lose.
+            You have been slayed, you lose.
         =====================GAME OVER=======================
-                                """)
+                        """)
         self.leader_board.leader_board(self.username, self.player_health, self.player_points,
                                        self.game_status)
         exit()
+
+    def pot_smash(self, pots):  # pot smash for any chamber
+        pots = pots - 1
+        self.player_points = self.player_points + 10
+        self.slow.slow_print(Fore.GREEN + f"""
+            You smashed the pot. Your score increased to {self.player_points} 
+                        """)
+        return pots
+
+    def attack(self):
+        self.player_points = self.player_points + 10
+        self.player_health = self.player_health - 1
