@@ -39,21 +39,24 @@ class GamePlay:
     def game_play(self):
         try:
             self.username = self.login.login()
+
             self.slow.slow_print("""
                 1. Start a new game
                 2. Load last saved
                 3. Exit
                 """)
             while True:
-                print(Fore.CYAN)
                 gamer_selection = input("Enter the index of your choice: ")
 
                 if gamer_selection == "1":
                     self.starting_prompt()
                     exit()
                 elif gamer_selection == "2":
-                    self.load_game(self.username)
-                    exit()
+                    if self.search_user_for_reloading():
+                        self.load_game()
+                    else:
+                        print(f"{self.username} not found. Start a new game.")
+
                 elif gamer_selection == "3":
                     exit()
                 else:
@@ -89,6 +92,9 @@ class GamePlay:
                 elif command == 'i':
                     self.slow.inventory(self.has_armor, self.has_adv_weapon, self.has_health_potion,
                                         self.has_green_key, self.has_red_key)
+                elif command == 'c':
+                    self.get_char_details()
+
                 elif command == 'enter':
                     if self.guard_1:
                         self.slow.slow_print(Fore.GREEN + """
@@ -142,6 +148,8 @@ class GamePlay:
                     self.slow.slow_print(Fore.GREEN + f"""
             There is nothing to {command} here.
                         """)
+                elif command == 'c' and not ask_key_to_take and not ask_key_to_unlock:
+                    self.get_char_details()
                 elif command == 'help' and not ask_key_to_take and not ask_key_to_unlock:
                     self.slow.help()
                 elif command == 'heal' and not ask_key_to_take and not ask_key_to_unlock:
@@ -263,6 +271,8 @@ class GamePlay:
                         """)
                 elif command == 'help' and not ask_red_key:
                     self.slow.help()
+                elif command == 'c' and not ask_red_key:
+                    self.get_char_details()
                 elif command == 'heal' and not ask_red_key:
                     self.heal()
                 elif command == 'i' and not ask_red_key:
@@ -399,6 +409,8 @@ class GamePlay:
                     self.slow.help()
                 elif command == 'heal':
                     self.heal()
+                elif command == 'c':
+                    self.get_char_details()
                 elif command == 'i':
                     self.slow.inventory(self.has_armor, self.has_adv_weapon, self.has_health_potion,
                                         self.has_green_key, self.has_red_key)
@@ -434,6 +446,8 @@ class GamePlay:
                                         self.has_green_key, self.has_red_key)
                 elif command == 'heal':
                     self.heal()
+                elif command == 'c':
+                    self.get_char_details()
                 elif command == 'attack':
                     if self.has_armor and self.has_adv_weapon and self.player_health == 5:
                         self.slow.slow_print(Fore.GREEN + """
@@ -458,32 +472,44 @@ class GamePlay:
         except Exception as error:
             self.slow.slow_print(error)
 
-    def load_game(self, username):
+    def search_user_for_reloading(self):
         game_progress = open("../resources/gameProgress.txt", "r")
         user_progress = game_progress.readlines()
         user_list = []
         for user in user_progress:
             user = user.split(":")
-            if username == user[0]:
+            if self.username == user[0]:
                 user_list.append(user)
         if user_list:
-            self.has_red_key = bool(user_list[-1][-2].strip())
-            self.has_green_key = bool(user_list[-1][-3].strip())
-            self.player_position = user_list[-1][-4].strip()
-            self.player_health = int(user_list[-1][-5].strip())
-            self.player_points = int(user_list[-1][-6].strip())
+            self.has_armor = user_list[-1][-2].strip()
+            has_red_key = user_list[-1][-3].strip()
+            has_green_key = user_list[-1][-4].strip()
+            self.player_position = user_list[-1][-5].strip()
+            self.player_health = int(user_list[-1][-6].strip())
+            self.player_points = int(user_list[-1][-7].strip())
+            self.char_name = user_list[-1][-8].strip()
             self.slow.slow_print("""
-            Welcome back!
-                        """)
-            if self.player_position == "common_chamber":
-
-                self.common_chamber()
-            elif self.player_position == "middle_chamber":
-                self.middle_chamber()
+                Welcome back!
+                            """)
+            if has_red_key == "True":
+                self.has_red_key = True
             else:
-                self.main_chamber()
+                self.has_red_key = False
+            if has_green_key == "True":
+                self.has_green_key = True
+            else:
+                self.has_green_key = False
+            return True
+
+    def load_game(self):
+
+        if self.player_position == "common_chamber":
+
+            self.common_chamber()
+        elif self.player_position == "middle_chamber":
+            self.middle_chamber()
         else:
-            print(f"{username} not found.")
+            self.main_chamber()
 
     def save_game(self):
         current_GMT = time.gmtime()
@@ -508,31 +534,37 @@ class GamePlay:
                 with open("../resources/gameProgress.txt", "a") as file:
                     file.write(f"{self.username}:{self.char_name}:{self.player_points}:"
                                f"{self.player_health}:{self.player_position}:{self.has_red_key}:{self.has_green_key}:"
-                               f"{formatted_time}\n")
+                               f"{self.has_armor}:{formatted_time}\n")
                 self.slow.slow_print("""
             The game has been saved successfully.
             Do you want to continue playing?
             You can either type "continue" or "end".
                         """)
-                choice_1 = input("Gamer command: ")
-                if choice_1.upper() == "CONTINUE":
-                    break
-                elif choice_1.upper() == "END":
-                    self.slow.slow_print("""
+                while True:
+                    choice_1 = input("Gamer command: ")
+                    if choice_1.upper() == "CONTINUE":
+                        break
+                    elif choice_1.upper() == "END":
+                        self.slow.slow_print("""
             Game closed.
             You can reload your progress just by logging in to the game.
                         """)
-                    quit()
-                else:
-                    self.slow.slow_print("""
+                        quit()
+                    else:
+                        self.slow.slow_print("""
             Invalid input. please enter either "continue" or "end".
                         """)
+                break
             elif choice.upper() == "N":
                 self.slow.slow_print("""
             Ok!
             Lets continue the game.
                         """)
                 break
+            else:
+                self.slow.slow_print("""
+            Please choose from the given options. (Y/N).
+                        """)
 
     def slayed(self):  # if killed by guard or dog, not by Boss
         self.player_health = 0
@@ -569,3 +601,16 @@ class GamePlay:
             You do not have anything to heal with.
                         """)
 
+    def get_char_details(self):
+        char_details = open("../resources/charDetails.txt", "r")
+        all_char_details = char_details.readlines()
+        char_list = []
+        for user in all_char_details:
+            user = user.split(":")
+            if self.username == user[0]:
+                char_list.append(user)
+        for item in char_list:
+            for i in item:
+                self.slow.slow_print(Fore.GREEN + """
+            """ + i + """
+                        """)

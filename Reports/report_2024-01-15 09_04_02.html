@@ -189,9 +189,9 @@ function showOutput(id, name) {
 
 <div class='heading'>
 <h1>MUD-Game Unit Test Report</h1>
-<p class='attribute'><strong>Start Time:</strong> 2024-01-15 01:41:10</p>
-<p class='attribute'><strong>Duration:</strong> 0:00:05.239044</p>
-<p class='attribute'><strong>Status:</strong> Pass 11</p>
+<p class='attribute'><strong>Start Time:</strong> 2024-01-15 09:04:02</p>
+<p class='attribute'><strong>Duration:</strong> 0:00:09.267088</p>
+<p class='attribute'><strong>Status:</strong> Pass 20</p>
 
 <p class='description'>This demonstrates the detailed report of the unit test</p>
 </div>
@@ -241,7 +241,7 @@ function showOutput(id, name) {
 </tr>
 
 <tr class='passClass'>
-    <td>TestHeal</td>
+    <td>TestGender</td>
     <td>3</td>
     <td>3</td>
     <td>0</td>
@@ -250,7 +250,7 @@ function showOutput(id, name) {
 </tr>
 
 <tr id='pt2.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_heal_when_health_full_and_no_health_potion</div></td>
+    <td class='none'><div class='testcase'>test_register_add_gender_invalid_then_valid_input</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
@@ -264,9 +264,10 @@ function showOutput(id, name) {
         </div>
         <pre>
         
-pt2.1: [32m
-            You do not have anything to heal with.
-                        
+pt2.1: 
+Invalid input, try again.
+
+Gender has been selected!
 
         </pre>
     </div>
@@ -276,7 +277,7 @@ pt2.1: [32m
 </tr>
 
 <tr id='pt2.2' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_heal_when_health_not_full_and_has_health_potion</div></td>
+    <td class='none'><div class='testcase'>test_register_add_gender_valid_input</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
@@ -290,9 +291,8 @@ pt2.1: [32m
         </div>
         <pre>
         
-pt2.2: [32m
-            You have used the health potion and healed to full health !
-                        
+pt2.2: 
+Gender has been selected!
 
         </pre>
     </div>
@@ -302,7 +302,7 @@ pt2.2: [32m
 </tr>
 
 <tr id='pt2.3' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_heal_when_health_not_full_and_no_health_potion</div></td>
+    <td class='none'><div class='testcase'>test_register_add_gender_valid_input_female</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
@@ -316,7 +316,93 @@ pt2.2: [32m
         </div>
         <pre>
         
-pt2.3: [32m
+pt2.3: 
+Gender has been selected!
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>TestHeal</td>
+    <td>3</td>
+    <td>3</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c3',3)">Detail</a></td>
+</tr>
+
+<tr id='pt3.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_heal_when_health_full_and_no_health_potion</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt3.1')" >
+        pass</a>
+
+    <div id='div_pt3.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt3.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt3.1: [32m
+            You do not have anything to heal with.
+                        
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt3.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_heal_when_health_not_full_and_has_health_potion</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt3.2')" >
+        pass</a>
+
+    <div id='div_pt3.2' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt3.2').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt3.2: [32m
+            You have used the health potion and healed to full health !
+                        
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt3.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_heal_when_health_not_full_and_no_health_potion</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt3.3')" >
+        pass</a>
+
+    <div id='div_pt3.3' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt3.3').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt3.3: [32m
             You do not have anything to heal with.
                         
 
@@ -333,44 +419,11 @@ pt2.3: [32m
     <td>1</td>
     <td>0</td>
     <td>0</td>
-    <td><a href="javascript:showClassDetail('c3',1)">Detail</a></td>
-</tr>
-
-<tr id='pt3.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_user_name</div></td>
-    <td colspan='5' align='center'>
-
-    <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt3.1')" >
-        pass</a>
-
-    <div id='div_pt3.1' class="popup_window">
-        <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_pt3.1').style.display = 'none' " >
-           [x]</a>
-        </div>
-        <pre>
-        
-pt3.1: Login successful!
-
-        </pre>
-    </div>
-    <!--css div popup end-->
-
-    </td>
-</tr>
-
-<tr class='passClass'>
-    <td>TestPlayerRegistration</td>
-    <td>2</td>
-    <td>2</td>
-    <td>0</td>
-    <td>0</td>
-    <td><a href="javascript:showClassDetail('c4',2)">Detail</a></td>
+    <td><a href="javascript:showClassDetail('c4',1)">Detail</a></td>
 </tr>
 
 <tr id='pt4.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_username_cannot_be_blank</div></td>
+    <td class='none'><div class='testcase'>test_user_name</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
@@ -384,18 +437,107 @@ pt3.1: Login successful!
         </div>
         <pre>
         
-pt4.1: 
-Username can not be blank
-Registration successful!
-Create your character.
+pt4.1: Login successful!
 
-Gender has been selected!
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>TestRegisterAddPass</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c5',1)">Detail</a></td>
+</tr>
+
+<tr id='pt5.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_register_add_pass_valid_input</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>TestRegisterAddUsername</td>
+    <td>2</td>
+    <td>2</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c6',2)">Detail</a></td>
+</tr>
+
+<tr id='pt6.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_register_add_username_blank_input</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt6.1')" >
+        pass</a>
+
+    <div id='div_pt6.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt6.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt6.1: 
+                    Username can not be blank
+                    DEBUG: Raising SystemExit for blank username
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt6.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_register_add_username_valid_input</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>TestRegisterSelectCharacter</td>
+    <td>3</td>
+    <td>3</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c7',3)">Detail</a></td>
+</tr>
+
+<tr id='pt7.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_register_select_character_invalid_then_valid_input</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt7.1')" >
+        pass</a>
+
+    <div id='div_pt7.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt7.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt7.1: 
 Select a character from the below list.
 1. Nord
 2. Elf
 3. Orc
 4. Dwarf
-Character 'Nord' selected for xgxpgzvc
+
+Invalid index. Please select a valid character index.
+1. Nord
+2. Elf
+3. Orc
+4. Dwarf
+Character 'Orc' selected for 
             Your character creation is completed. 
             Now login and dive into the game of adventures!
             
@@ -407,31 +549,67 @@ Character 'Nord' selected for xgxpgzvc
     </td>
 </tr>
 
-<tr id='pt4.2' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_valid_registration</div></td>
+<tr id='pt7.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_register_select_character_invalid_then_valid_input_with_invalid_input</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt4.2')" >
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt7.2')" >
         pass</a>
 
-    <div id='div_pt4.2' class="popup_window">
+    <div id='div_pt7.2' class="popup_window">
         <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_pt4.2').style.display = 'none' " >
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt7.2').style.display = 'none' " >
            [x]</a>
         </div>
         <pre>
         
-pt4.2: Registration successful!
-Create your character.
-
-Gender has been selected!
+pt7.2: 
 Select a character from the below list.
 1. Nord
 2. Elf
 3. Orc
 4. Dwarf
-Character 'Nord' selected for new_user
+
+Invalid input. Please enter a number.
+1. Nord
+2. Elf
+3. Orc
+4. Dwarf
+Character 'Dwarf' selected for 
+            Your character creation is completed. 
+            Now login and dive into the game of adventures!
+            
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt7.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_register_select_character_valid_input</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt7.3')" >
+        pass</a>
+
+    <div id='div_pt7.3' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt7.3').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt7.3: 
+Select a character from the below list.
+1. Nord
+2. Elf
+3. Orc
+4. Dwarf
+Character 'Elf' selected for 
             Your character creation is completed. 
             Now login and dive into the game of adventures!
             
@@ -449,25 +627,25 @@ Character 'Nord' selected for new_user
     <td>1</td>
     <td>0</td>
     <td>0</td>
-    <td><a href="javascript:showClassDetail('c5',1)">Detail</a></td>
+    <td><a href="javascript:showClassDetail('c8',1)">Detail</a></td>
 </tr>
 
-<tr id='pt5.1' class='hiddenRow'>
+<tr id='pt8.1' class='hiddenRow'>
     <td class='none'><div class='testcase'>test_slayed_with_full_health</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt5.1')" >
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt8.1')" >
         pass</a>
 
-    <div id='div_pt5.1' class="popup_window">
+    <div id='div_pt8.1' class="popup_window">
         <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_pt5.1').style.display = 'none' " >
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt8.1').style.display = 'none' " >
            [x]</a>
         </div>
         <pre>
         
-pt5.1: [31m
+pt8.1: [31m
             You have been slayed, you lose.
         =====================GAME OVER=======================
                         [31m
@@ -497,25 +675,25 @@ pt5.1: [31m
     <td>2</td>
     <td>0</td>
     <td>0</td>
-    <td><a href="javascript:showClassDetail('c6',2)">Detail</a></td>
+    <td><a href="javascript:showClassDetail('c9',2)">Detail</a></td>
 </tr>
 
-<tr id='pt6.1' class='hiddenRow'>
+<tr id='pt9.1' class='hiddenRow'>
     <td class='none'><div class='testcase'>test_multiple_smash_points</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt6.1')" >
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt9.1')" >
         pass</a>
 
-    <div id='div_pt6.1' class="popup_window">
+    <div id='div_pt9.1' class="popup_window">
         <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_pt6.1').style.display = 'none' " >
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt9.1').style.display = 'none' " >
            [x]</a>
         </div>
         <pre>
         
-pt6.1: [32m
+pt9.1: [32m
             You smashed the pot. Your score increased to 10 
                         [32m
             You smashed the pot. Your score increased to 20 
@@ -534,22 +712,22 @@ pt6.1: [32m
     </td>
 </tr>
 
-<tr id='pt6.2' class='hiddenRow'>
+<tr id='pt9.2' class='hiddenRow'>
     <td class='none'><div class='testcase'>test_pot_smash_points</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt6.2')" >
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt9.2')" >
         pass</a>
 
-    <div id='div_pt6.2' class="popup_window">
+    <div id='div_pt9.2' class="popup_window">
         <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_pt6.2').style.display = 'none' " >
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt9.2').style.display = 'none' " >
            [x]</a>
         </div>
         <pre>
         
-pt6.2: [32m
+pt9.2: [32m
             You smashed the pot. Your score increased to 10 
                         
 
@@ -560,10 +738,29 @@ pt6.2: [32m
     </td>
 </tr>
 
+<tr class='passClass'>
+    <td>TestTask</td>
+    <td>2</td>
+    <td>2</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c10',2)">Detail</a></td>
+</tr>
+
+<tr id='pt10.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_task_1_correct_answer</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt10.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_task_2_correct_answer</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
 <tr id='total_row'>
     <td>Total</td>
-    <td>11</td>
-    <td>11</td>
+    <td>20</td>
+    <td>20</td>
     <td>0</td>
     <td>0</td>
     <td>&nbsp;</td>

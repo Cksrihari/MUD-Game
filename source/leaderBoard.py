@@ -14,7 +14,7 @@ class LeaderBoard:
 
         data = open("../resources/charDetails.txt", "r")
         user_details = data.readlines()
-        user_list =[]
+        user_list = []
         for user in user_details:
             user = user.split(":")
             if user_name == user[0]:
@@ -38,7 +38,7 @@ class LeaderBoard:
             Congratulations!
             You have rescued the princess and there is no one to stop you now.
 
-            You have completed the game. 
+            Game Completed. 
 
             """)
             with open(unsortedFilePath, mode='a', newline='') as file:
@@ -59,12 +59,3 @@ class LeaderBoard:
         print("=" * 32 + "Leader Board" + "=" * 32)
         print()
         print(data)
-
-
-
-
-
-
-
-
-

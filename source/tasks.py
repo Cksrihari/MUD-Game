@@ -19,7 +19,7 @@ class Task:
         self.slow.slow_print(Fore.GREEN + """
             You are now in the Main Chamber. The door to the Boss chamber is locked!
             You have to complete two riddles to open the door and move forward. Careful,
-            theres only two chances for each riddle, and if you use them all up, a trap door
+            there are only two chances for each riddle, and if you use them all up, a trap door
             will open sending you to your doom. Completing the riddles will grant you items
             that will help defeat the boss.
 
@@ -37,8 +37,7 @@ class Task:
                 b) Statue
                 c) Painting
                 d) Mirror
-            Answer: 
-                        """)
+            Answer: """)
 
             if answer_task_1.upper() == "A":
                 self.slow.slow_print(Fore.GREEN + f"""
@@ -46,44 +45,48 @@ class Task:
                         """)
                 if race == 'Nord':
                     self.slow.slow_print(Fore.GREEN + f"""
-            {self.nord_weapon}
+                    {self.nord_weapon}
                         """)
+                    break
                 elif race == 'Elf':
                     self.slow.slow_print(Fore.GREEN + f"""
-            {self.elf_weapon}
+                    {self.elf_weapon}
                         """)
+                    break
                 elif race == 'Orc':
                     self.slow.slow_print(Fore.GREEN + f"""
-            {self.orc_weapon}   
+                    {self.orc_weapon}   
                         """)
+                    break
                 else:
                     self.slow.slow_print(Fore.GREEN + f"""
-            {self.dwarf_weapon}
+                    {self.dwarf_weapon}
                         """)
-                self.slow.slow_print(Fore.GREEN + """
-            It'll help you to beat the Boss.
-                        """)
-                break
+                    break
+
             elif answer_task_1.upper() in ["B", "C", "D"]:
                 self.chance -= 1
                 if self.chance > 0:
                     self.slow.slow_print(Fore.GREEN + """
-            Oops! 
-            Think harder. You have another chance.
-            But this will be the last.
-                        """)
+                    Oops! 
+                    Think harder. You have another chance.
+                    But this will be the last.
+                                """)
                 else:
                     self.slow.slow_print(Fore.RED + """
-            You have lost the final chance. You were unable to solve the riddle and fall to your doom. 
-
-=====================GAME OVER=======================
-                        """)
+                    You have lost the final chance. You were unable to solve the riddle and fall to your doom. 
+    
+            =====================GAME OVER=======================
+                                """)
                     self.leader_board.leader_board(username, player_points, player_health, game_status)
-                    exit()
+                    raise SystemExit
             else:
                 self.slow.slow_print(Fore.GREEN + """
-            Please choose from above options only.
-                        """)
+                        Please choose from the above options only.
+                                    """)
+            self.slow.slow_print(Fore.GREEN + """
+        It'll help you to beat the Boss.
+                    """)
 
     def task_2(self, username, player_points, player_health, game_status):
         self.slow.slow_print(Fore.GREEN + """
@@ -95,46 +98,47 @@ class Task:
                         """)
 
         self.chance = 2
-        while True:
-            self.slow.slow_print(Fore.CYAN + f"""
-            Chances Left: {self.chance}
-                        """)
-            answer_task_2 = input("""
-            Options:
-                a) Sword
-                b) Shield
-                c) Crown
-                d) Armor
-            Answer: 
-                        """)
+        try:
+            while True:
+                self.slow.slow_print(Fore.CYAN + f"""
+                Chances Left: {self.chance}
+                            """)
+                answer_task_2 = input("""
+                Options:
+                    a) Sword
+                    b) Shield
+                    c) Crown
+                    d) Armor
+                Answer: """)
 
-            if answer_task_2.upper() == "A":
-                self.slow.slow_print(Fore.GREEN + """
+                if answer_task_2.upper() == "A":
+                    self.slow.slow_print(Fore.GREEN + """
             Genius! You have been awarded a health potion, use it wisely.
             Now you can enter the Boss Chamber.
                         """)
-                break
-            elif answer_task_2.upper() in ["B", "C", "D"]:
-                self.chance -= 1
-                if self.chance > 0:
-                    self.slow.slow_print(Fore.GREEN + """
+                    break
+                elif answer_task_2.upper() in ["B", "C", "D"]:
+                    self.chance -= 1
+                    if self.chance > 0:
+                        self.slow.slow_print(Fore.GREEN + """
             Oops! 
             Think harder. You have another chance.
             But this will be the last.
                         """)
-                else:
-                    self.slow.slow_print(Fore.RED + """
+                    else:
+                        self.slow.slow_print(Fore.RED + """
             You have lost the final chance. 
             You were unable to solve the riddle. 
 
-=====================GAME OVER=======================
+    =====================GAME OVER=======================
                         """)
 
-                    self.leader_board.leader_board(username, player_points, player_health, game_status)
-                    exit()
-            else:
-                self.slow.slow_print(Fore.GREEN + """
+                        self.leader_board.leader_board(username, player_points, player_health, game_status)
+                        raise SystemExit
+                else:
+                    self.slow.slow_print(Fore.GREEN + """
             Please choose from above options only.
                         """)
-
-
+        except SystemExit:
+            # If SystemExit is raised, catch it here
+            pass

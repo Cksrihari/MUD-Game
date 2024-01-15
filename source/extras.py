@@ -7,7 +7,8 @@ init()
 
 
 class Extras:
-    def slow_print(self, text):  # Delayed printing function
+    @staticmethod
+    def slow_print(text):  # Delayed printing function
         for character in text:
             sys.stdout.write(character)  # writes the character
             sys.stdout.flush()
@@ -26,6 +27,7 @@ class Extras:
                 green - to pick green key
             smash - smash pot
             heal - use health potion
+            c - Show character details
             exit - exit game
                         """)
 
@@ -33,7 +35,7 @@ class Extras:
         inventory_dict = {
             "Rusty Sword": True,
             "Armor": armor,
-            "Sharp Sword": adv_weapon,
+            "Advanced Weapon": adv_weapon,
             "Health Potion": health_potion,
             "Green Key": green_key,
             "Red Key": red_key
@@ -44,9 +46,9 @@ class Extras:
             """ + item + """
                         """)
 
-    def play_game_audio(self):
+    @staticmethod
+    def play_game_audio():
         soundtrack_path = "../resources/game_audio.mp3"
         pygame.mixer.init()
         pygame.mixer.music.load(soundtrack_path)
         pygame.mixer.music.play(-1)  # -1 for looping the music
-
