@@ -91,7 +91,7 @@ Version in 0.7.1
 # TODO: simplify javascript using ,ore than 1 class in the class attribute?
 
 import datetime
-import StringIO
+import io
 import sys
 import time
 import unittest
@@ -510,6 +510,7 @@ a.popup_link:hover {
 
 TestResult = unittest.TestResult
 
+
 class _TestResult(TestResult):
     # note: _TestResult is a pure representation of results.
     # It lacks the output and reporting ability compares to unittest._TextTestResult.
@@ -532,11 +533,10 @@ class _TestResult(TestResult):
         # )
         self.result = []
 
-
     def startTest(self, test):
         TestResult.startTest(self, test)
         # just one buffer for both stdout and stderr
-        self.outputBuffer = StringIO.StringIO()
+        self.outputBuffer = io.StringIO()
         stdout_redirector.fp = self.outputBuffer
         stderr_redirector.fp = self.outputBuffer
         self.stdout0 = sys.stdout
@@ -575,7 +575,7 @@ class _TestResult(TestResult):
             sys.stderr.write(str(test))
             sys.stderr.write('\n')
         else:
-            sys.stderr.write('.')
+            sys.stderr.write('../../../source')
 
     def addError(self, test, err):
         self.error_count += 1
@@ -628,21 +628,22 @@ class HTMLTestRunner(Template_mixin):
         test(result)
         self.stopTime = datetime.datetime.now()
         self.generateReport(test, result)
-        print >>sys.stderr, '\nTime Elapsed: %s' % (self.stopTime-self.startTime)
+        print('Time Elapsed: ', file=sys.stderr)
+
         return result
 
 
     def sortResult(self, result_list):
-        # unittest does not seems to run in any particular order.
+        # unittest does not seem to run in any particular order.
         # Here at least we want to group them together by class.
         rmap = {}
         classes = []
         for n,t,o,e in result_list:
             cls = t.__class__
-            if not rmap.has_key(cls):
+            if cls not in rmap:
                 rmap[cls] = []
                 classes.append(cls)
-            rmap[cls].append((n,t,o,e))
+            rmap[cls].append((n, t, o, e))
         r = [(cls, rmap[cls]) for cls in classes]
         return r
 
@@ -684,7 +685,7 @@ class HTMLTestRunner(Template_mixin):
             report = report,
             ending = ending,
         )
-        self.stream.write(output.encode('utf8'))
+        self.stream.write(output)
 
 
     def _generate_stylesheet(self):
@@ -763,13 +764,13 @@ class HTMLTestRunner(Template_mixin):
         if isinstance(o,str):
             # TODO: some problem with 'string_escape': it escape \n and mess up formating
             # uo = unicode(o.encode('string_escape'))
-            uo = o.decode('latin-1')
+            uo = o
         else:
             uo = o
         if isinstance(e,str):
             # TODO: some problem with 'string_escape': it escape \n and mess up formating
             # ue = unicode(e.encode('string_escape'))
-            ue = e.decode('latin-1')
+            ue = e
         else:
             ue = e
 
